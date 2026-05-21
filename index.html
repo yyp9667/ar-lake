@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ENTER</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .sound-btn,
+    .enter-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 220px;
+      height: 64px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .sound-btn {
+      background: rgba(245, 245, 245, 0.72);
+      color: #222222;
+    }
+
+    .enter-btn {
+      background: rgba(255, 255, 255, 0.96);
+      color: #111111;
+    }
+
+    .sound-btn:active,
+    .enter-btn:active {
+      transform: scale(0.98);
+      opacity: 0.95;
+    }
+
+    .notes {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(120, 120, 120, 0.9);
+      margin-top: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <button id="soundBtn" class="sound-btn">SOUND</button>
+
+    <a id="enterBtn" class="enter-btn" rel="ar" href="lake.usdz">ENTER</a>
+
+    <div class="notes">
+      <p>Open with iPhone Safari.</p>
+      <p>Best viewed in bright light on a textured surface.</p>
+    </div>
+  </div>
+
+  <audio id="waterAudio" preload="auto" loop>
+    <source src="water.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const soundBtn = document.getElementById("soundBtn");
+    const audio = document.getElementById("waterAudio");
+
+    let isPlaying = false;
+
+    soundBtn.addEventListener("click", async () => {
+      try {
+        if (!isPlaying) {
+          await audio.play();
+          isPlaying = true;
+          soundBtn.textContent = "PAUSE";
+        } else {
+          audio.pause();
+          isPlaying = false;
+          soundBtn.textContent = "SOUND";
+        }
+      } catch (error) {
+        alert("Audio could not play. Please check that water.mp3 is uploaded correctly.");
+      }
+    });
+  </script>
+</body>
+</html>
